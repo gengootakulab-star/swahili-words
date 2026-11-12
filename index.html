@@ -153,6 +153,49 @@ footer a{display:inline-block;padding:6px 0}
 <p style="margin:0;font-size:15px">分解の結果と日本語の訳は、規則から機械的に作った目安です。<b>誤りが含まれる可能性があります。</b>切り方が何通りもある語は、候補を並べて表示します。おかしな点を見つけたら、下のリンクから教えてください。</p>
 <p style="margin:10px 0 0"><a id="rep-form" href="https://forms.gle/c2BxTpxS1v8K5iba6" target="_blank" rel="noopener">誤りを報告する(フォーム・アカウント不要)</a><br><a id="rep-issue" href="https://github.com/gengootakulab-star/swahili-words/issues/new?template=report.yml" target="_blank" rel="noopener">GitHub で報告する</a></p>
 </div>
+<!-- ===== この言語の記事(サイトの data.js から自動で表示) ===== -->
+<section class="rn" aria-labelledby="rn-h">
+<p class="rn-en">NOTES</p>
+<h2 id="rn-h" class="rn-h">スワヒリ語の記事</h2>
+<ul class="rn-list" id="rn-list"></ul>
+<a class="rn-all" href="/notes.html">記事の一覧を見る →</a>
+</section>
+<style>
+.rn{margin:32px 0 8px;padding-top:20px;border-top:1px solid var(--sand)}
+.rn-en{margin:0;font-family:Fraunces,Georgia,serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
+.rn-h{font-size:17px;line-height:1.45;margin:2px 0 10px;color:var(--ink)}
+.rn-list{list-style:none;margin:0;padding:0}
+.rn-list:empty{display:none}
+.rn-list li{margin:0 0 10px}
+.rn-list a{display:block;min-height:44px;padding:12px 14px;background:var(--card);border:1px solid var(--sand);border-radius:16px;box-shadow:0 1px 3px rgba(32,54,74,.06);text-decoration:none;color:var(--ink)}
+.rn-list a:active{opacity:.75}
+.rn-t{display:block;font-weight:700;font-size:15px;line-height:1.5}
+.rn-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;line-height:1.6;color:var(--mute);margin-top:4px}
+.rn-m{display:block;font-size:12px;color:var(--mute);margin-top:6px}
+.rn-all{display:inline-flex;align-items:center;min-height:44px;font-size:14px;color:var(--ac)}
+.rn a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+</style>
+<script>
+(function(){
+  var LANGS=["SWAHILI"], EXTRA=[], MAX=3;
+  var list=document.getElementById("rn-list");
+  fetch("/data.js").then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(src){
+    var notes=new Function(src+"\n;return NOTES;")();
+    var hit=notes.filter(function(n){
+      var l=[].concat(n.lang||[]);
+      return EXTRA.indexOf(n.href)>=0||l.some(function(x){return LANGS.indexOf(x)>=0;});
+    }).slice(0,MAX);
+    hit.forEach(function(n){
+      var li=document.createElement("li"),a=document.createElement("a");
+      a.href="/"+n.href.replace(/^\//,"");
+      var t=document.createElement("span");t.className="rn-t";t.textContent=n.title;a.appendChild(t);
+      if(n.desc){var d=document.createElement("span");d.className="rn-d";d.textContent=n.desc;a.appendChild(d);}
+      if(n.date){var m=document.createElement("span");m.className="rn-m";m.textContent=n.date.replace(/-/g,".");a.appendChild(m);}
+      li.appendChild(a);list.appendChild(li);
+    });
+  }).catch(function(){/* 読み込めないときは「記事の一覧を見る」だけを表示 */});
+})();
+</script>
 </main>
 <footer><div class="wrap">
 辞書データ: <a href="https://en.wiktionary.org/" target="_blank" rel="noopener">Wiktionary</a>(<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ja" target="_blank" rel="noopener">CC BY-SA 4.0</a>)。<a href="https://kaikki.org/dictionary/Swahili/" target="_blank" rel="noopener">kaikki.org</a> の抽出データを加工して利用しています(動詞 3,178 語)。日本語の訳は、運営者がAIの助けを借りて作成しました。<br>
